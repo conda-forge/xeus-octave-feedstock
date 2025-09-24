@@ -9,9 +9,10 @@ Package license: GPL-2.0-or-later
 
 Summary: Xeus kernel for Octave
 
+Development: https://github.com/rapgenic/xeus-octave
+
 Xeus kernel for the mathematics-oriented syntax with built-in
 2D/3D plotting and visualization tools Octave.
-
 
 Current build status
 ====================

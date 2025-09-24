@@ -1,0 +1,87 @@
+context:
+  version: "0.6.1"
+  build_numer: 0
+
+package:
+  name: xeus-octave
+  version: ${{ version }}
+
+source:
+  url: https://github.com/jupyter-xeus/xeus-octave/archive/v{{ version }}.tar.gz
+  sha256: 72c06749139d12b7c73067aa30097d905fe5499a472599cba8a1f74f9112a465
+
+build:
+  number: ${{ build_number }}
+  skip:
+    - win
+
+requirements:
+  build:
+    - pkg-config
+    - ${{ stdlib("c") }}
+    - ${{ compiler('cxx') }}
+    - cmake
+    - if: unix
+      then:
+        - make
+    - if: linux
+      then:
+        - ${{ cdt('mesa-libgl-devel') }}
+        - ${{ cdt('mesa-dri-drivers') }}
+        - ${{ cdt('libselinux') }}
+        - ${{ cdt('libxdamage') }}
+        - ${{ cdt('libxxf86vm') }}
+        - ${{ cdt('libxext') }}
+  host:
+    - octave >=10.0,<11.0
+    - glfw
+    - glad
+    - libpng
+    - xeus >=5
+    - xeus-zmq >=3.1,<4.0
+    - nlohmann_json
+    - nlohmann_json-abi
+    - if: linux
+      then:
+        - xorg-libxfixes
+  run:
+    # Octave is missing a run_exports section
+    - ${{ pin_compatible('octave', upper_bound='x.x') }}
+    # Mesalib is missing a run_exports section
+    - ${{ pin_compatible('mesalib', upper_bound='x.x') }}
+
+tests:
+  - package_contents:
+      files:
+        exists:
+          - bin/xoctave
+  - script:
+      - xoctave --version
+      - pytest test -k 'not plot'
+      - pytest test -k 'plot_plotly'
+    requirements:
+      run:
+        - jupyter_kernel_test >=0.4.3
+        - nbval
+        - pytest
+        - pytest-rerunfailures
+    files:
+      source:
+        - test/
+
+about:
+  homepage: https://github.com/rapgenic/xeus-octave
+  repository: https://github.com/rapgenic/xeus-octave
+  license: GPL-2.0-or-later
+  license_file: LICENSE
+  summary: Xeus kernel for Octave
+  description: |
+    Xeus kernel for the mathematics-oriented syntax with built-in
+    2D/3D plotting and visualization tools Octave.
+
+extra:
+  recipe-maintainers:
+    - IsabelParedes
+    - rapgenic
+    - SylvainCorlay
+    - AntoinePrv
