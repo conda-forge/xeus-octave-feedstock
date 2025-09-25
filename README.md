@@ -182,6 +182,7 @@ Feedstock Maintainers
 
 * [@AntoinePrv](https://github.com/AntoinePrv/)
 * [@IsabelParedes](https://github.com/IsabelParedes/)
+* [@JohanMabille](https://github.com/JohanMabille/)
 * [@SylvainCorlay](https://github.com/SylvainCorlay/)
 * [@rapgenic](https://github.com/rapgenic/)
 
