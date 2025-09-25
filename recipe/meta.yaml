@@ -10,7 +10,7 @@ source:
   sha256: 72c06749139d12b7c73067aa30097d905fe5499a472599cba8a1f74f9112a465
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -34,7 +34,8 @@ requirements:
     - libpng
     - xeus >=5
     - xeus-zmq >=3.0,<4.0
-    - nlohmann_json >=3.11.3,<4.0
+    - nlohmann_json
+    - nlohmann_json-abi
   run:
     # Octave is missing a run_exports section
     - {{ pin_compatible('octave', max_pin='x.x') }}
