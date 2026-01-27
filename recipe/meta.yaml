@@ -20,12 +20,6 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - make  # [unix]
-    - {{ cdt('mesa-libgl-devel') }}  # [linux]
-    - {{ cdt('mesa-dri-drivers') }}  # [linux]
-    - {{ cdt('libselinux') }}  # [linux]
-    - {{ cdt('libxdamage') }}  # [linux]
-    - {{ cdt('libxxf86vm') }}  # [linux]
-    - {{ cdt('libxext') }}     # [linux]
   host:
     - octave >=10.0,<11.0
     - xorg-libxfixes  # [linux]
