@@ -30,11 +30,6 @@ requirements:
     - xeus-zmq >=3.0,<4.0
     - nlohmann_json
     - nlohmann_json-abi
-  run:
-    # Octave is missing a run_exports section
-    - {{ pin_compatible('octave', max_pin='x.x') }}
-    # Mesalib is missing a run_exports section
-    - {{ pin_compatible('mesalib', max_pin='x.x') }}
 
 test:
   requires:
@@ -42,7 +37,6 @@ test:
     - nbval
     - pytest
     - pytest-rerunfailures
-    # - {{ cdt('xorg-x11-server-xvfb') }}     # [linux]
   source_files:
     - test
   commands:
@@ -50,7 +44,6 @@ test:
     - xoctave --version
     - pytest test -k 'not plot'
     - pytest test -k 'plot_plotly'
-    # - xvfb-run pytest test -k 'plot_notebook'  # [linux]
 
 about:
   home: https://github.com/rapgenic/xeus-octave
