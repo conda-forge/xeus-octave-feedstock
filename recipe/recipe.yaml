@@ -1,28 +1,29 @@
-{% set name = "xeus-octave" %}
-{% set version = "0.6.3" %}
+context:
+  name: xeus-octave
+  version: 0.6.3
 
 package:
-  name: {{ name }}
-  version: {{ version }}
+  name: ${{ name }}
+  version: ${{ version }}
 
 source:
-  url: https://github.com/jupyter-xeus/xeus-octave/archive/v{{ version }}.tar.gz
+  url: https://github.com/jupyter-xeus/xeus-octave/archive/v${{ version }}.tar.gz
   sha256: d5a50c81992caeac0826b4028ce0c3c1792182ad82a4f9056cfe4a73cfb2fd54
 
 build:
-  number: 0
-  skip: true  # [win]
+  number: 1
+  skip:
+  - win
 
 requirements:
   build:
+    - ${{ stdlib("c") }}
+    - ${{ compiler("cxx") }}
     - pkg-config
-    - {{ stdlib("c") }}
-    - {{ compiler('cxx') }}
     - cmake
-    - make  # [unix]
+    - make
   host:
     - octave >=10.0,<11.0
-    - xorg-libxfixes  # [linux]
     - glfw
     - glad
     - libpng
@@ -31,22 +32,26 @@ requirements:
     - nlohmann_json
     - nlohmann_json-abi
 
-test:
-  requires:
+tests:
+- package_contents:
+    files:
+    - bin/xoctave
+- script:
+    - xoctave --version
+    - pytest test -k 'not plot'
+    - pytest test -k 'plot_plotly'
+  requirements:
+    run:
     - jupyter_kernel_test >=0.4.3
     - nbval
     - pytest
     - pytest-rerunfailures
-  source_files:
+  files:
+    source:
     - test
-  commands:
-    - test -f ${PREFIX}/bin/xoctave  # [unix]
-    - xoctave --version
-    - pytest test -k 'not plot'
-    - pytest test -k 'plot_plotly'
 
 about:
-  home: https://github.com/rapgenic/xeus-octave
+  homepage: https://github.com/rapgenic/xeus-octave
   license: GPL-2.0-or-later
   license_file: LICENSE
   summary: Xeus kernel for Octave
