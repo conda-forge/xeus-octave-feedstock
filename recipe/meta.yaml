@@ -1,5 +1,5 @@
 {% set name = "xeus-octave" %}
-{% set version = "0.6.2" %}
+{% set version = "0.6.3" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/jupyter-xeus/xeus-octave/archive/v{{ version }}.tar.gz
-  sha256: 3e9cf4b53d3f1ddff294262f5fd6f6eab9d27fd4dd883fc756b029b234245791
+  sha256: d5a50c81992caeac0826b4028ce0c3c1792182ad82a4f9056cfe4a73cfb2fd54
 
 build:
   number: 0
@@ -20,12 +20,6 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - make  # [unix]
-    - {{ cdt('mesa-libgl-devel') }}  # [linux]
-    - {{ cdt('mesa-dri-drivers') }}  # [linux]
-    - {{ cdt('libselinux') }}  # [linux]
-    - {{ cdt('libxdamage') }}  # [linux]
-    - {{ cdt('libxxf86vm') }}  # [linux]
-    - {{ cdt('libxext') }}     # [linux]
   host:
     - octave >=10.0,<11.0
     - xorg-libxfixes  # [linux]
@@ -36,11 +30,6 @@ requirements:
     - xeus-zmq >=3.0,<4.0
     - nlohmann_json
     - nlohmann_json-abi
-  run:
-    # Octave is missing a run_exports section
-    - {{ pin_compatible('octave', max_pin='x.x') }}
-    # Mesalib is missing a run_exports section
-    - {{ pin_compatible('mesalib', max_pin='x.x') }}
 
 test:
   requires:
@@ -48,7 +37,6 @@ test:
     - nbval
     - pytest
     - pytest-rerunfailures
-    # - {{ cdt('xorg-x11-server-xvfb') }}     # [linux]
   source_files:
     - test
   commands:
@@ -56,7 +44,6 @@ test:
     - xoctave --version
     - pytest test -k 'not plot'
     - pytest test -k 'plot_plotly'
-    # - xvfb-run pytest test -k 'plot_notebook'  # [linux]
 
 about:
   home: https://github.com/rapgenic/xeus-octave
