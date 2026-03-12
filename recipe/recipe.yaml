@@ -7,7 +7,7 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://github.com/jupyter-xeus/xeus-octave/archive/v{{ version }}.tar.gz
+  url: https://github.com/jupyter-xeus/xeus-octave/archive/v${{ version }}.tar.gz
   sha256: e741fde4ee7abe94f74dd2a210041d40cdb89b4bd4c94b36650b47230034fc8d
 
 build:
