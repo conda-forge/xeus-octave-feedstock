@@ -12,7 +12,6 @@ Summary: Xeus kernel for Octave
 Xeus kernel for the mathematics-oriented syntax with built-in
 2D/3D plotting and visualization tools Octave.
 
-
 Current build status
 ====================
 
